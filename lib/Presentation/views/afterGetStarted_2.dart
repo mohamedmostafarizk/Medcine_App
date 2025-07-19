@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-class Aftergetstarted1 extends StatelessWidget {
-  const Aftergetstarted1({super.key});
+class Aftergetstarted2 extends StatelessWidget {
+  const Aftergetstarted2({super.key});
 
   @override
   Widget build(BuildContext context) {
