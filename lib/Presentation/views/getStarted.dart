@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:medcineapp/Presentation/views/afterGetStarted_1.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({super.key});
@@ -43,7 +44,14 @@ class GetStarted extends StatelessWidget {
                   color: Colors.blue,
                 ),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Aftergetstarted1(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Get Started',
                     style: TextStyle(color: Colors.white, fontSize: 18),
