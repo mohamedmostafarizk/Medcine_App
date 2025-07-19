@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:medcineapp/Presentation/views/afterGetStarted_2.dart';
 
 class Aftergetstarted1 extends StatelessWidget {
   const Aftergetstarted1({super.key});
@@ -10,28 +11,50 @@ class Aftergetstarted1 extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          // Top image
           Container(
-            color: Color(0xFFFFFFFF),
+            color: const Color(0xFFFFFFFF),
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 1.7,
-            child: Image.asset('asset/images/0_3.png'),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50, left: 300),
+                  child: GestureDetector(
+                    onTap: (){},
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 100),
+                Image.asset('asset/images/0_3.png'),
+              ],
+            ),
           ),
+
+          // Bottom section
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),
-              color: Colors.red,
+              color: Colors.white,
             ),
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 2.43,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 60),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                const SizedBox(height: 60),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
                     'Dive Into Your Profound Journey Of Wellness',
                     textAlign: TextAlign.center,
@@ -42,7 +65,7 @@ class Aftergetstarted1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
@@ -51,10 +74,62 @@ class Aftergetstarted1 extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                   ),
                 ),
+                const Spacer(),
+
+                // Arrows + Dots
+                Row(
+                  children: [
+                    SizedBox(width: 20), // Space before left arrow
+                    // Left arrow (disabled on page 1)
+                    Icon(
+                      Icons.arrow_circle_left,
+                      size: 40,
+                      color: Color.fromARGB(255, 185, 206, 231),
+                    ),
+                    Spacer(), // Dots
+                    Row(
+                      children: [
+                        dot(false), // active dot
+                        const SizedBox(width: 10),
+                        dot(true), // inactive
+                      ],
+                    ),
+                    const Spacer(), // Right arrow
+
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_circle_right,
+                        size: 40,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Aftergetstarted2(),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(width: 20), // Space after right arrow
+                  ],
+                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget dot(bool isActive) {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(
+        color: isActive ? Color.fromARGB(255, 185, 206, 231) : Colors.blue,
+        shape: BoxShape.circle,
       ),
     );
   }
