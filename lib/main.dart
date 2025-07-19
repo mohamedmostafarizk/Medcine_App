@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medcineapp/Presentation/views/homeView.dart';
+import 'package:medcineapp/Presentation/views/splashView.dart';
 
 void main() {
   runApp(MedcineApp());
@@ -12,7 +12,7 @@ class MedcineApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeView(),
+      home: SplashView(),
     );
   }
 }
