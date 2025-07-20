@@ -205,7 +205,7 @@ class _RegisterpageState extends State<Registerpage> {
                         ),
                       ],
                     ),
-                    child: Image.asset('asset/icons/gicon.png'),
+                    child: Image.asset('asset/icons/google_icon.png'),
                   ),
                   Container(
                     width: 40,

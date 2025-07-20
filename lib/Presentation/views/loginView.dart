@@ -189,7 +189,7 @@ class _LoginviewState extends State<Loginview> {
                         ),
                       ],
                     ),
-                    child: Image.asset('asset/icons/gicon.png'),
+                    child: Image.asset('asset/icons/google_icon.png'),
                   ),
                   Container(
                     width: 40,
