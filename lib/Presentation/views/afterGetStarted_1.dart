@@ -21,8 +21,8 @@ class Aftergetstarted1 extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 50, left: 300),
-                  child: GestureDetector(
-                    onTap: (){
+                  child: InkWell(
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -20,7 +20,7 @@ class Aftergetstarted2 extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 50, left: 300),
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
