@@ -16,7 +16,7 @@ class _VerfiyemailState extends State<Verfiyemail> {
   final _emailController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
-  Future<void> _sendVerificationEmail() async {
+  Future<void> _sendPasswordResetEmail() async {
     // Basic input validation
     if (_emailController.text.trim().isEmpty) {
       ScaffoldMessenger.of(
@@ -26,41 +26,19 @@ class _VerfiyemailState extends State<Verfiyemail> {
     }
 
     try {
-      // Check if the user is signed in
-      User? user = _auth.currentUser;
-
-      if (user != null) {
-        // Verify that the input email matches the signed-in user's email
-        if (user.email == _emailController.text.trim()) {
-          if (!user.emailVerified) {
-            await user.sendEmailVerification();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Verification email sent. Check your inbox.'),
-              ),
-            );
-            Navigator.pop(context); // Return to previous screen
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Email is already verified.')),
-            );
-            Navigator.pop(context);
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Email does not match the signed-in user.')),
-          );
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No user is signed in. Please log in first.')),
-        );
-      }
+      await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Password reset email sent. Check your inbox.')),
+      );
+      Navigator.pop(context); // Return to Loginview
     } on FirebaseAuthException catch (e) {
       String message;
       switch (e.code) {
         case 'invalid-email':
           message = 'The email address is invalid.';
+          break;
+        case 'user-not-found':
+          message = 'No user found for that email.';
           break;
         case 'too-many-requests':
           message = 'Too many requests. Please try again later.';
@@ -106,7 +84,7 @@ class _VerfiyemailState extends State<Verfiyemail> {
                       color: Colors.black.withOpacity(0.1),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
@@ -114,21 +92,21 @@ class _VerfiyemailState extends State<Verfiyemail> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                 ),
               ),
-              SizedBox(height: 40),
-              Center(
+              const SizedBox(height: 40),
+              const Center(
                 child: Text(
-                  'Verify Email',
+                  'Forgot Password',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 20),
               std,
               const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
                 child: Text(
                   'Email',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -154,7 +132,7 @@ class _VerfiyemailState extends State<Verfiyemail> {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
-                  onPressed: _sendVerificationEmail,
+                  onPressed: _sendPasswordResetEmail,
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(340, 50),
                     backgroundColor: const Color(0xFF4A90E2),
@@ -163,12 +141,12 @@ class _VerfiyemailState extends State<Verfiyemail> {
                     ),
                   ),
                   child: const Text(
-                    'Send Verification Email',
+                    'Send Reset Email',
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
@@ -188,16 +166,18 @@ class _VerfiyemailState extends State<Verfiyemail> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Verifyphone()),
+                      MaterialPageRoute(
+                        builder: (context) => const Verifyphone(),
+                      ),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Verify Using Phone?',
                     style: TextStyle(
                       fontSize: 16,
