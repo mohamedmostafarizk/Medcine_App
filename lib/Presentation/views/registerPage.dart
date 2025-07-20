@@ -1,9 +1,8 @@
-// ignore_for_file: file_names, deprecated_member_use
+// ignore_for_file: file_names, deprecated_member_use, prefer_final_fields, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medcineapp/Presentation/views/loginView.dart';
-import 'package:medcineapp/const.dart';
 
 class Registerpage extends StatefulWidget {
   const Registerpage({super.key});
