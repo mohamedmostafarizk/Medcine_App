@@ -30,9 +30,7 @@ class _RegisterpageState extends State<Registerpage> {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 20),
-            std,
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             const Padding(
               padding: EdgeInsets.only(left: 15),
               child: Text(
@@ -147,7 +145,7 @@ class _RegisterpageState extends State<Registerpage> {
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: ElevatedButton(
@@ -167,7 +165,7 @@ class _RegisterpageState extends State<Registerpage> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
