@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/registerPage.dart';
+import 'package:medcineapp/Presentation/views/verfiyEmail.dart';
 import 'package:medcineapp/const.dart';
 
 class Loginview extends StatefulWidget {
@@ -107,7 +108,14 @@ class _LoginviewState extends State<Loginview> {
                   Spacer(),
                   TextButton(
                     onPressed: () {
-                      // Handle "Forgot Password" action
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Verfiyemail();
+                          },
+                        ),
+                      );
                     },
                     child: const Text(
                       'Forgot Password',
