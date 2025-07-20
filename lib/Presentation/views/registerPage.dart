@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:medcineapp/Presentation/views/loginView.dart';
 import 'package:medcineapp/const.dart';
 
 class Registerpage extends StatefulWidget {
@@ -22,14 +24,68 @@ class _RegisterpageState extends State<Registerpage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 100, left: 130),
+              padding: EdgeInsets.only(top: 70, left: 85),
               child: Text(
-                'Login Now',
+                'Create An Account',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 20),
             std,
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Text(
+                'Name',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xFFF2F8FF),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Text(
+                'phone number',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  keyboardType: TextInputType.number, // Shows numeric keyboard
+                  inputFormatters: [
+                    FilteringTextInputFormatter
+                        .digitsOnly, // Allows only digits
+                  ],
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xFFF2F8FF),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
             const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.only(left: 15),
@@ -41,12 +97,15 @@ class _RegisterpageState extends State<Registerpage> {
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: const Color(0xFFF2F8FF),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xFFF2F8FF),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                 ),
               ),
@@ -62,65 +121,33 @@ class _RegisterpageState extends State<Registerpage> {
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: TextField(
-                obscureText: _obscurePassword,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: const Color(0xFFF2F8FF),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xFFF2F8FF),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-
-            /// 👉 "Remember Me" Checkbox
-            Padding(
-              padding: const EdgeInsets.only(left: 8, top: 8),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: _rememberMe,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        _rememberMe = value!;
-                      });
-                    },
-                  ),
-                  const Text('Remember me', style: TextStyle(fontSize: 15)),
-                  Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      // Handle "Forgot Password" action
-                    },
-                    child: const Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: ElevatedButton(
@@ -135,12 +162,12 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
                 ),
                 child: const Text(
-                  'Login',
+                  'Register',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -160,7 +187,7 @@ class _RegisterpageState extends State<Registerpage> {
                 ),
               ],
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Container(
@@ -201,20 +228,25 @@ class _RegisterpageState extends State<Registerpage> {
                 ),
               ],
             ),
-            const SizedBox(height: 80),
+            const SizedBox(height: 35),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Don\'t have an account?',
+                  "Already have an account?",
                   style: TextStyle(fontSize: 16),
                 ),
                 TextButton(
                   onPressed: () {
-                    // Handle navigation to sign-up page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Loginview(),
+                      ),
+                    );
                   },
                   child: const Text(
-                    'Register',
+                    'Login',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.blue,
