@@ -111,17 +111,7 @@ class _RegisterpageState extends State<Registerpage> {
           // Navigate to Verifyphone page to enter the code
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => Verifyphone(
-                verificationId: _verificationId!,
-                onVerified: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Homeview()),
-                  );
-                },
-              ),
-            ),
+            MaterialPageRoute(builder: (context) => Verifyphone()),
           );
         },
         codeAutoRetrievalTimeout: (String verificationId) {
