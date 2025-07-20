@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:medcineapp/Presentation/views/loginView.dart';
 
 class Aftergetstarted2 extends StatelessWidget {
   const Aftergetstarted2({super.key});
@@ -20,7 +21,14 @@ class Aftergetstarted2 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 50, left: 300),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Loginview(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Skip',
                       style: TextStyle(

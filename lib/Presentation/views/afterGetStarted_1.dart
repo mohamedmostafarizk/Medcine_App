@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/afterGetStarted_2.dart';
+import 'package:medcineapp/Presentation/views/loginView.dart';
 
 class Aftergetstarted1 extends StatelessWidget {
   const Aftergetstarted1({super.key});
@@ -21,7 +22,14 @@ class Aftergetstarted1 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 50, left: 300),
                   child: GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Loginview(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Skip',
                       style: TextStyle(
