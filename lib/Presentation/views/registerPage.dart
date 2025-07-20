@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medcineapp/Presentation/views/homeView.dart';
 import 'package:medcineapp/Presentation/views/loginView.dart';
 import 'package:medcineapp/Presentation/views/verifyPhone.dart';
@@ -23,6 +24,7 @@ class _RegisterpageState extends State<Registerpage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  final _googleSignIn = GoogleSignIn();
   String? _verificationId;
 
   Future<void> _register() async {
@@ -134,6 +136,65 @@ class _RegisterpageState extends State<Registerpage> {
           break;
         default:
           message = 'An error occurred. Please try again.';
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An unexpected error occurred. Please try again.'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      // Sign out from Google to ensure account selection prompt
+      await _googleSignIn.signOut();
+
+      // Trigger Google Sign-In
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        // User canceled the sign-in
+        return;
+      }
+
+      // Obtain auth details from the Google user
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Sign in to Firebase with the Google credential
+      await _auth.signInWithCredential(credential);
+
+      // Navigate to Homeview after successful Google sign-in
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Homeview()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+      switch (e.code) {
+        case 'account-exists-with-different-credential':
+          message =
+              'An account already exists with a different sign-in method.';
+          break;
+        case 'invalid-credential':
+          message = 'Invalid Google credentials.';
+          break;
+        case 'user-disabled':
+          message = 'This user account has been disabled.';
+          break;
+        default:
+          message =
+              'An error occurred during Google sign-in. Please try again.';
       }
       ScaffoldMessenger.of(
         context,
@@ -330,24 +391,27 @@ class _RegisterpageState extends State<Registerpage> {
               ),
               const SizedBox(height: 10),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    margin: const EdgeInsets.only(left: 140),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey[200],
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
+                  InkWell(
+                    onTap: _signInWithGoogle,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey[200],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Image.asset('asset/icons/gicon.png'),
                     ),
-                    child: Image.asset('asset/icons/google_icon.png'),
                   ),
                   Container(
                     width: 40,
@@ -361,7 +425,7 @@ class _RegisterpageState extends State<Registerpage> {
                           color: Colors.black.withOpacity(0.1),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
