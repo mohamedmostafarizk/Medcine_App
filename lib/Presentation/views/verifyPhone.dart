@@ -1,10 +1,22 @@
-// ignore_for_file: file_names, deprecated_member_use
+// ignore_for_file: file_names, deprecated_member_use, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:medcineapp/const.dart';
 
-class Verifyphone extends StatelessWidget {
+class Verifyphone extends StatefulWidget {
   const Verifyphone({super.key});
+
+  @override
+  State<Verifyphone> createState() => _VerifyphoneState();
+}
+
+class _VerifyphoneState extends State<Verifyphone> {
+  // Add this above the build method (inside the class if you're using StatelessWidget, you may need to change to StatefulWidget for focus control):
+  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+  final List<TextEditingController> _controllers = List.generate(
+    6,
+    (_) => TextEditingController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +51,7 @@ class Verifyphone extends StatelessWidget {
             SizedBox(height: 40),
             Center(
               child: Text(
-                'Forgot password',
+                'Verify Code',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
@@ -48,38 +60,55 @@ class Verifyphone extends StatelessWidget {
             const SizedBox(height: 30),
             Center(
               child: Text(
-                'Enter the 4-digit code sent to your phone',
+                'Enter verification code',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 12),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(4, (index) {
-                return SizedBox(
-                  width: 60,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(6, (index) {
+                return Container(
+                  width: 45,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: TextField(
+                    controller: _controllers[index],
+                    focusNode: _focusNodes[index],
                     keyboardType: TextInputType.number,
-                    maxLength: 1,
                     textAlign: TextAlign.center,
+                    maxLength: 1,
                     decoration: InputDecoration(
-                      counterText: '',
+                      counterText: "",
                       filled: true,
                       fillColor: Color(0xFFF2F8FF),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    onChanged: (value) {
+                      if (value.isNotEmpty && index < 5) {
+                        FocusScope.of(
+                          context,
+                        ).requestFocus(_focusNodes[index + 1]);
+                      } else if (value.isEmpty && index > 0) {
+                        FocusScope.of(
+                          context,
+                        ).requestFocus(_focusNodes[index - 1]);
+                      }
+                    },
                   ),
                 );
               }),
             ),
+
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle login action
+                  String code = _controllers.map((c) => c.text).join();
+                  print('Entered code: $code');
+                  // Add your verification logic here
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(340, 50),
@@ -89,11 +118,13 @@ class Verifyphone extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'Send Code',
+                  'Verify Code',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
             ),
+
+            // ... (or divider and verify with phone section)
           ],
         ),
       ),
