@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/afterGetStarted_2.dart';
 import 'package:medcineapp/Presentation/views/loginView.dart';
+import 'package:medcineapp/models/client_model.dart';
 
 class Aftergetstarted1 extends StatelessWidget {
-  const Aftergetstarted1({super.key});
+  const Aftergetstarted1({super.key, required this.clientModel});
+  final ClientModel clientModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,8 @@ class Aftergetstarted1 extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Loginview(),
+                          builder: (context) =>
+                              Loginview(clientModel: clientModel),
                         ),
                       );
                     },
@@ -114,7 +117,8 @@ class Aftergetstarted1 extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Aftergetstarted2(),
+                            builder: (context) =>
+                                Aftergetstarted2(clientModel: clientModel),
                           ),
                         );
                       },

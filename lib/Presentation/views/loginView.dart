@@ -10,7 +10,8 @@ import 'package:medcineapp/const.dart';
 import 'package:medcineapp/models/client_model.dart';
 
 class Loginview extends StatefulWidget {
-  const Loginview({super.key});
+  const Loginview({super.key, required this.clientModel});
+  final ClientModel clientModel;
 
   @override
   State<Loginview> createState() => _LoginviewState();
@@ -23,8 +24,6 @@ class _LoginviewState extends State<Loginview> {
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
-
-  late final ClientModel clientModel;
 
   Future<void> _login() async {
     // Basic input validation
@@ -52,7 +51,7 @@ class _LoginviewState extends State<Loginview> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Homeview(clientModel: clientModel),
+          builder: (context) => Homeview(clientModel: widget.clientModel),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -114,7 +113,7 @@ class _LoginviewState extends State<Loginview> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Homeview(clientModel: clientModel),
+          builder: (context) => Homeview(clientModel: widget.clientModel),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -252,7 +251,8 @@ class _LoginviewState extends State<Loginview> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Verfiyemail(),
+                            builder: (context) =>
+                                Verfiyemail(clientModel: widget.clientModel),
                           ),
                         );
                       },
@@ -363,7 +363,8 @@ class _LoginviewState extends State<Loginview> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Registerpage(),
+                          builder: (context) =>
+                              Registerpage(clientModel: widget.clientModel),
                         ),
                       );
                     },

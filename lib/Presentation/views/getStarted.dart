@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/afterGetStarted_1.dart';
+import 'package:medcineapp/models/client_model.dart';
 
 class GetStarted extends StatelessWidget {
-  const GetStarted({super.key});
+  const GetStarted({super.key, required this.clientModel});
+  final ClientModel clientModel;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,8 @@ class GetStarted extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Aftergetstarted1(),
+                        builder: (context) =>
+                            Aftergetstarted1(clientModel: clientModel),
                       ),
                     );
                   },

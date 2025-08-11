@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/verifyPhone.dart';
 import 'package:medcineapp/const.dart';
+import 'package:medcineapp/models/client_model.dart';
 
 class Verfiyemail extends StatefulWidget {
-  const Verfiyemail({super.key});
+  const Verfiyemail({super.key, required this.clientModel});
+  final ClientModel clientModel;
 
   @override
   State<Verfiyemail> createState() => _VerfiyemailState();
@@ -173,7 +175,8 @@ class _VerfiyemailState extends State<Verfiyemail> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Verifyphone(),
+                        builder: (context) =>
+                            Verifyphone(clientModel: widget.clientModel),
                       ),
                     );
                   },

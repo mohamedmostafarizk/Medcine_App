@@ -11,7 +11,8 @@ import 'package:medcineapp/Presentation/views/verifyPhone.dart';
 import 'package:medcineapp/models/client_model.dart';
 
 class Registerpage extends StatefulWidget {
-  const Registerpage({super.key});
+  const Registerpage({super.key, required this.clientModel});
+  final ClientModel clientModel;
 
   @override
   State<Registerpage> createState() => _RegisterpageState();
@@ -27,7 +28,6 @@ class _RegisterpageState extends State<Registerpage> {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
   String? _verificationId;
-  late final ClientModel clientModel;
 
   Future<void> _register() async {
     // Basic input validation
@@ -90,7 +90,7 @@ class _RegisterpageState extends State<Registerpage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Homeview(clientModel: clientModel),
+              builder: (context) => Homeview(clientModel: widget.clientModel),
             ),
           );
         },
@@ -117,7 +117,10 @@ class _RegisterpageState extends State<Registerpage> {
           // Navigate to Verifyphone page to enter the code
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Verifyphone()),
+            MaterialPageRoute(
+              builder: (context) =>
+                  Verifyphone(clientModel: widget.clientModel),
+            ),
           );
         },
         codeAutoRetrievalTimeout: (String verificationId) {
@@ -182,7 +185,7 @@ class _RegisterpageState extends State<Registerpage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Homeview(clientModel: clientModel),
+          builder: (context) => Homeview(clientModel: widget.clientModel),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -362,8 +365,8 @@ class _RegisterpageState extends State<Registerpage> {
                 padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
                   onPressed: () {
-                    _register;
-                    clientModel.name = _nameController.text;
+                    widget.clientModel.name = _nameController.text;
+                    _register();
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(340, 50),
@@ -455,7 +458,8 @@ class _RegisterpageState extends State<Registerpage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Loginview(),
+                          builder: (context) =>
+                              Loginview(clientModel: widget.clientModel),
                         ),
                       );
                     },
