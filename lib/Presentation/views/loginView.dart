@@ -7,11 +7,9 @@ import 'package:medcineapp/Presentation/views/homeView.dart';
 import 'package:medcineapp/Presentation/views/registerPage.dart';
 import 'package:medcineapp/Presentation/views/verfiyEmail.dart';
 import 'package:medcineapp/const.dart';
-import 'package:medcineapp/models/client_model.dart';
 
 class Loginview extends StatefulWidget {
-  const Loginview({super.key, required this.clientModel});
-  final ClientModel clientModel;
+  const Loginview({super.key});
 
   @override
   State<Loginview> createState() => _LoginviewState();
@@ -50,9 +48,7 @@ class _LoginviewState extends State<Loginview> {
       // Navigate to Homeview after successful login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => Homeview(clientModel: widget.clientModel),
-        ),
+        MaterialPageRoute(builder: (context) => Homeview()),
       );
     } on FirebaseAuthException catch (e) {
       String message;
@@ -113,7 +109,7 @@ class _LoginviewState extends State<Loginview> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Homeview(clientModel: widget.clientModel),
+          builder: (context) => Homeview(),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -252,7 +248,7 @@ class _LoginviewState extends State<Loginview> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                Verfiyemail(clientModel: widget.clientModel),
+                                Verfiyemail(),
                           ),
                         );
                       },
@@ -364,7 +360,7 @@ class _LoginviewState extends State<Loginview> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              Registerpage(clientModel: widget.clientModel),
+                              Registerpage(),
                         ),
                       );
                     },

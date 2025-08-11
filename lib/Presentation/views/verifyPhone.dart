@@ -4,11 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/homeView.dart';
 import 'package:medcineapp/const.dart';
-import 'package:medcineapp/models/client_model.dart';
 
 class Verifyphone extends StatefulWidget {
-  const Verifyphone({super.key, required this.clientModel});
-  final ClientModel clientModel;
+  const Verifyphone({super.key,});
 
   @override
   State<Verifyphone> createState() => _VerifyphoneState();
@@ -45,7 +43,7 @@ class _VerifyphoneState extends State<Verifyphone> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Homeview(clientModel: widget.clientModel),
+              builder: (context) => Homeview(),
             ),
           ); // Adjust route
         },

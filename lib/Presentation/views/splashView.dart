@@ -2,11 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/getStarted.dart';
-import 'package:medcineapp/models/client_model.dart';
 
 class SplashView extends StatefulWidget {
-  const SplashView({super.key, required this.clientModel});
-  final ClientModel clientModel;
+  const SplashView({super.key});
 
   @override
   State<SplashView> createState() => _SplashViewState();
@@ -21,9 +19,7 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => GetStarted(clientModel: widget.clientModel),
-        ),
+        MaterialPageRoute(builder: (context) => GetStarted()),
       );
     });
   }

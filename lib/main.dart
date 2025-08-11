@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medcineapp/Presentation/views/splashView.dart';
-import 'package:medcineapp/models/client_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,9 +15,7 @@ class MedcineApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashView(
-        clientModel: ClientModel(name: ""),
-      ), // Pass an empty ClientModel for now
+      home: SplashView(), // Pass an empty ClientModel for now
     );
   }
 }
