@@ -89,7 +89,9 @@ class _RegisterpageState extends State<Registerpage> {
           );
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Homeview()),
+            MaterialPageRoute(
+              builder: (context) => Homeview(clientModel: clientModel),
+            ),
           );
         },
         verificationFailed: (FirebaseAuthException e) {
@@ -179,7 +181,9 @@ class _RegisterpageState extends State<Registerpage> {
       // Navigate to Homeview after successful Google sign-in
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Homeview()),
+        MaterialPageRoute(
+          builder: (context) => Homeview(clientModel: clientModel),
+        ),
       );
     } on FirebaseAuthException catch (e) {
       String message;
