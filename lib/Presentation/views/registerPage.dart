@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medcineapp/Presentation/views/homeView.dart';
 import 'package:medcineapp/Presentation/views/loginView.dart';
 import 'package:medcineapp/Presentation/views/verifyPhone.dart';
+import 'package:medcineapp/models/client_model.dart';
 
 class Registerpage extends StatefulWidget {
   const Registerpage({super.key});
@@ -26,6 +27,7 @@ class _RegisterpageState extends State<Registerpage> {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
   String? _verificationId;
+  late final ClientModel clientModel;
 
   Future<void> _register() async {
     // Basic input validation
@@ -355,7 +357,10 @@ class _RegisterpageState extends State<Registerpage> {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
-                  onPressed: _register,
+                  onPressed: () {
+                    _register;
+                    clientModel.name = _nameController.text;
+                  },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(340, 50),
                     backgroundColor: const Color(0xFF4A90E2),
