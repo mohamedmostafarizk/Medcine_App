@@ -45,9 +45,11 @@ class _HomeviewState extends State<Homeview> {
           children: [
             // Greeting Row
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 30,
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                top: 42,
+                bottom: 40,
               ),
               child: Row(
                 children: [
@@ -68,6 +70,7 @@ class _HomeviewState extends State<Homeview> {
             SizedBox(
               height: 70,
               child: ListView.builder(
+                padding: const EdgeInsets.only(left: 8),
                 scrollDirection: Axis.horizontal,
                 itemCount: currentWeekDates.length,
                 itemBuilder: (context, index) {
