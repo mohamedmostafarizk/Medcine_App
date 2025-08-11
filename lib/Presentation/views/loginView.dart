@@ -7,6 +7,7 @@ import 'package:medcineapp/Presentation/views/homeView.dart';
 import 'package:medcineapp/Presentation/views/registerPage.dart';
 import 'package:medcineapp/Presentation/views/verfiyEmail.dart';
 import 'package:medcineapp/const.dart';
+import 'package:medcineapp/models/client_model.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -22,6 +23,8 @@ class _LoginviewState extends State<Loginview> {
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
+
+  late final ClientModel clientModel;
 
   Future<void> _login() async {
     // Basic input validation
@@ -48,7 +51,9 @@ class _LoginviewState extends State<Loginview> {
       // Navigate to Homeview after successful login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Homeview()),
+        MaterialPageRoute(
+          builder: (context) => Homeview(clientModel: clientModel),
+        ),
       );
     } on FirebaseAuthException catch (e) {
       String message;
@@ -108,7 +113,9 @@ class _LoginviewState extends State<Loginview> {
       // Navigate to Homeview after successful Google sign-in
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Homeview()),
+        MaterialPageRoute(
+          builder: (context) => Homeview(clientModel: clientModel),
+        ),
       );
     } on FirebaseAuthException catch (e) {
       String message;
