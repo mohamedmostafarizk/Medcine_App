@@ -15,7 +15,6 @@ class Homeview extends StatefulWidget {
 }
 
 class _HomeviewState extends State<Homeview> {
-
   String clientName = '';
 
   final List<Widget> _pages = [
@@ -48,8 +47,6 @@ class _HomeviewState extends State<Homeview> {
       }
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +103,23 @@ class _HomeviewState extends State<Homeview> {
           ],
         ),
       ),
+
       bottomNavigationBar: const CustomBottomnavigationbar(),
+      floatingActionButton: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () {
+          // Your action
+        },
+        child: const Text('Add Reminder'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
