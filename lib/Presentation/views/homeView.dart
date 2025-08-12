@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medcineapp/Presentation/widgets/Custom_BottomNavigationBar.dart';
 import 'package:medcineapp/Presentation/widgets/Custom_dateBar.dart';
 import 'package:medcineapp/Presentation/widgets/CustomedcineCard.dart';
 
@@ -14,7 +15,6 @@ class Homeview extends StatefulWidget {
 }
 
 class _HomeviewState extends State<Homeview> {
-  int _selectedIndex = 0;
 
   String clientName = '';
 
@@ -49,11 +49,7 @@ class _HomeviewState extends State<Homeview> {
     }
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +81,6 @@ class _HomeviewState extends State<Homeview> {
                 ],
               ),
             ),
-
             // Weekly date navbar
             CustomDatebar(),
             const SizedBox(height: 20),
@@ -111,20 +106,7 @@ class _HomeviewState extends State<Homeview> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.medication),
-            label: "Medicine",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: "About"),
-        ],
-      ),
+      bottomNavigationBar: const CustomBottomnavigationbar(),
     );
   }
 }
