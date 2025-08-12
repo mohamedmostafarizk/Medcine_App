@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medcineapp/Presentation/widgets/Custom_dateBar.dart';
 import 'package:medcineapp/Presentation/widgets/CustomedcineCard.dart';
 
 class Homeview extends StatefulWidget {
@@ -14,7 +15,6 @@ class Homeview extends StatefulWidget {
 
 class _HomeviewState extends State<Homeview> {
   int _selectedIndex = 0;
-  late List<DateTime> currentWeekDates;
 
   String clientName = '';
 
@@ -28,7 +28,6 @@ class _HomeviewState extends State<Homeview> {
   void initState() {
     super.initState();
     _loadUserName();
-    _generateCurrentWeek();
   }
 
   Future<void> _loadUserName() async {
@@ -50,15 +49,6 @@ class _HomeviewState extends State<Homeview> {
     }
   }
 
-  void _generateCurrentWeek() {
-    DateTime today = DateTime.now();
-    DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
-    currentWeekDates = List.generate(
-      7,
-      (index) => startOfWeek.add(Duration(days: index)),
-    );
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -67,8 +57,6 @@ class _HomeviewState extends State<Homeview> {
 
   @override
   Widget build(BuildContext context) {
-    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -99,52 +87,7 @@ class _HomeviewState extends State<Homeview> {
             ),
 
             // Weekly date navbar
-            SizedBox(
-              height: 70,
-              child: ListView.builder(
-                padding: const EdgeInsets.only(left: 8),
-                scrollDirection: Axis.horizontal,
-                itemCount: currentWeekDates.length,
-                itemBuilder: (context, index) {
-                  final date = currentWeekDates[index];
-                  bool isToday =
-                      date.day == DateTime.now().day &&
-                      date.month == DateTime.now().month &&
-                      date.year == DateTime.now().year;
-
-                  return Container(
-                    width: 60,
-                    margin: const EdgeInsets.symmetric(horizontal: 6),
-                    decoration: BoxDecoration(
-                      color: isToday ? Colors.blue : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          weekdays[date.weekday - 1],
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: isToday ? Colors.white : Colors.black,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "${date.day}",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: isToday ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+            CustomDatebar(),
             const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.only(left: 14),
@@ -161,7 +104,7 @@ class _HomeviewState extends State<Homeview> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return CustomCard();
+                  return CustomedcineCard(index: index);
                 },
               ),
             ),
